@@ -12,7 +12,4 @@ interface IBridge {
     // =============================== Write Functions ===============================
     function stake(address token_addr, uint256 _amount) external returns (bool success);
     function mint(address account, address token_addr, uint256 amount) external returns (bool success);
-
-    // =============================== Admin Functions ===============================
-    function setTargetContractAddr(address addr) external returns (bool success);
 }

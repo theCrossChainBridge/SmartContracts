@@ -8,8 +8,6 @@ import "./interfaces/IBridge.sol";
 contract Bridge is IBridge, Ownable {
     error InsufficientBalance();
 
-    address public targetContractAddr;
-
     /// account => token_address => balance
     mapping (address => mapping (address => uint256)) public tokenBalanceOf;
 
@@ -47,15 +45,5 @@ contract Bridge is IBridge, Ownable {
      */
     function balanceOfToken(address token_addr) view public override returns (uint256 balance) {
         return IERC20(token_addr).balanceOf(address(this));
-    }
-
-    /**
-     * @dev set the target contract address
-     * @param addr the target contract address
-     */
-    function setTargetContractAddr(address addr) external override onlyOwner returns (bool success) {
-        targetContractAddr = addr;
-
-        success = true;
     }
 }
