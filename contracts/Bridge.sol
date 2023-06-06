@@ -18,7 +18,7 @@ contract Bridge is IBridge, Ownable {
      * @param token_addr the address of ERC20 token
      * @param amount the amount of ERC20 token to stake
      */
-    function stake(address token_addr, uint256 amount) external override checkTargetBalance(token_addr, amount) returns (bool success) {
+    function stake(address token_addr, uint256 amount) external override returns (bool success) {
         IERC20(token_addr).transferFrom(msg.sender, address(this), amount);
         tokenBalanceOf[msg.sender][token_addr] += amount;
 
@@ -57,15 +57,5 @@ contract Bridge is IBridge, Ownable {
         targetContractAddr = addr;
 
         success = true;
-    }
-
-    /**
-     * @dev check the target contract has the enough balance of token
-     */
-    modifier checkTargetBalance(address token_addr, uint256 amount) {
-        if(IBridge(targetContractAddr).balanceOfToken(token_addr) < amount) {
-            revert InsufficientBalance();
-        }
-        _;
     }
 }
