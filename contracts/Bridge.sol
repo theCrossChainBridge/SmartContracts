@@ -18,7 +18,9 @@ contract Bridge is IBridge, Ownable {
      */
     function stake(address token_addr, uint256 amount) external override returns (bool success) {
         IERC20(token_addr).transferFrom(msg.sender, address(this), amount);
-        tokenBalanceOf[msg.sender][token_addr] += amount;
+        unchecked {
+            tokenBalanceOf[msg.sender][token_addr] += amount;   
+        }
 
         success = true;
 
@@ -32,7 +34,6 @@ contract Bridge is IBridge, Ownable {
      */
     function mint(address account, address token_addr, uint256 amount) external override onlyOwner returns (bool success) {
         IERC20(token_addr).transfer(account, amount);
-        tokenBalanceOf[account][token_addr] -= amount;
 
         success = true;
 
