@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity =0.8.20;
+pragma solidity ^0.8.6;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -10,7 +10,8 @@ contract Bridge is IBridge, Ownable {
 
     address public targetContractAddr;
 
-    mapping (address account => mapping (address tokenAddr => uint256 balance)) public tokenBalanceOf;
+    /// account => token_address => balance
+    mapping (address => mapping (address => uint256)) public tokenBalanceOf;
 
     /**
      * @dev stake token into contract
