@@ -5,7 +5,7 @@ async function main() {
   const Bridge = await BridgeFactory.deploy();
   await Bridge.deployed();
 
-  console.log(`The contract has been deployed to ${Bridge.address}`);
+  console.log(`The Bridge contract has been deployed to ${Bridge.address}`);
 }
 
 main().catch((error) => {
