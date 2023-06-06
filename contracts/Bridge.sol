@@ -10,9 +10,6 @@ contract Bridge is IBridge, Ownable {
 
     address public targetContractAddr;
 
-    /**
-     * @notice 
-     */
     mapping (address account => mapping (address tokenAddr => uint256 balance)) public tokenBalanceOf;
 
     /**
