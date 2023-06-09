@@ -3,8 +3,8 @@ pragma solidity ^0.8.16;
 
 interface IBridge {
     // =============================== Event ===============================
-    event Stake(address indexed account, address token_addr, uint256 amount);
-    event Mint(address indexed account, address token_addr, uint256 amount);
+    event Stake(address indexed account, address tokenOut, uint256 amount);
+    event Mint(address indexed account, address tokenIn, uint256 amount);
 
     // =============================== Read Functions ===============================
     function balanceOfToken(address token_addr) view external returns (uint256 balance);
