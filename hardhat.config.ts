@@ -19,11 +19,11 @@ const config: HardhatUserConfig = {
   networks: {
     polygonMumbai: {
       url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.Mumbai_RPC_KEY}`,
-      accounts: [PRIVATE_KEY]
+      accounts: [process.env.PRIVATE_KEY!]
     },
     sepolia: {
       url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.Sepolia_RPC_KEY}`,
-      accounts: [PRIVATE_KEY]
+      accounts: [process.env.PRIVATE_KEY!]
     }
   },
 
