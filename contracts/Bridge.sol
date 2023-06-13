@@ -105,7 +105,7 @@ contract Bridge is IBridge, Ownable {
     function getAmountOut(
         uint256 inputAmount,
         address inputToken
-    ) public view returns (uint256 outputAmount) {
+    ) public view override returns (uint256 outputAmount) {
         if (inputToken == tokenA_addr) {
             outputAmount = (inputAmount * reserveB) / (reserveA + inputAmount);
         } else if (inputToken == tokenB_addr) {
@@ -126,7 +126,7 @@ contract Bridge is IBridge, Ownable {
     function getAmountIn(
         uint256 outputAmount,
         address outputToken
-    ) public view returns (uint256 inputAmount) {
+    ) public view override returns (uint256 inputAmount) {
         if(outputToken != tokenA_addr && outputToken != tokenB_addr) {
             revert InvalidTokenAddress();
         }
@@ -134,7 +134,7 @@ contract Bridge is IBridge, Ownable {
         if (outputToken == tokenA_addr) {
             inputAmount = (_reserveB * outputAmount) / (_reserveA - outputAmount);
         } else {
-            inputAmount = (_reserveA * outputAmount) / (_reserveA - outputAmount);
+            inputAmount = (_reserveA * outputAmount) / (_reserveB - outputAmount);
         }
 
         if(inputAmount == 0) revert InsufficientBalance();
@@ -145,7 +145,7 @@ contract Bridge is IBridge, Ownable {
      * @return _reserveA the reserve of tokenA
      * @return _reserveB the reserve of tokenB
      */
-    function getReserve() public view returns (uint256 _reserveA, uint256 _reserveB) {
+    function getReserve() public view override returns (uint256 _reserveA, uint256 _reserveB) {
         (_reserveA, _reserveB) = (reserveA, reserveB);
     }
 
@@ -155,7 +155,7 @@ contract Bridge is IBridge, Ownable {
      * @param amountB the amount of tokenB
      * @return success the result of tx
      */
-    function addReserve(uint256 amountA, uint256 amountB) public returns (bool success) {
+    function addReserve(uint256 amountA, uint256 amountB) public override returns (bool success) {
         IERC20(tokenA_addr).transferFrom(_msgSender(), address(this), amountA);
         IERC20(tokenB_addr).transferFrom(_msgSender(), address(this), amountB);
         success = true;
